@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1588891333 source:f:\fiap\2eca\algoritmos_alta_performance\trabalho2\atpacientes\atpaceintesv1\main.cpp
+	<iostream>
+	<locale>
+	<cstring>
+
