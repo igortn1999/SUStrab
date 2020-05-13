@@ -275,19 +275,11 @@ int main()
         for(i=0;i<ntotal;i++){
 
             if(strcmp(pesquisaCpf, pacientes[i].cpf)==0){
-                cout<<"\nPaciente encontrado!!!\n Nome: "<<pacientes[i].nome<<endl;
+                string statPac;
+                cout<<"\nPaciente encontrado!\n Nome: "<<pacientes[i].nome<<endl;
                 cout<<"\nDigite o novo status do paciente:"<<endl;
-                //acho que tem que fazer todo o teste do status aqui mais uma vez
-                char teste[NCAR];
-                cin.getline(teste, NCAR);
-                pacientes[i].status = teste;
-
+                pacientes[i].status = statuspac();
                 cout<<"\n\nNovo status do paciente: "<<pacientes[i].status<<endl;
-                char Liberado [NCAR]= "Liberado";
-
-                if(strcmp(teste,Liberado)){
-
-                }
                 }
 
             }
