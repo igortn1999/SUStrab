@@ -192,7 +192,7 @@ int main()
 
                 cout<<"\n\n+++++++ Selecione a UBS: +++++++\n\n"<<endl;
                 int pesquisaUBS=0;
-                for(pesquisaUBS;pesquisaUBS<nUBS;pesquisaUBS++){
+                for(pesquisaUBS;pesquisaUBS<totalUBS;pesquisaUBS++){
                     cout<<"NOME INSTITUIÇÃO ["<<pesquisaUBS+1<<"]: "<<umed[pesquisaUBS].nome<<"\nLEITOS DISPONÍVEIS: "<<umed[pesquisaUBS].nLeitos<<endl;
                 }
                 cout<<"\n\n Selecione o número da UBS: "<<endl;
@@ -277,7 +277,7 @@ int main()
             if(strcmp(pesquisaCpf, pacientes[i].cpf)==0){
                 string statPac;
                 cout<<"\nPaciente encontrado!\n Nome: "<<pacientes[i].nome<<endl;
-                cout<<"\nDigite o novo status do paciente:"<<endl;
+                cout<<"\nFaça o questionario novamente:"<<endl;
                 pacientes[i].status = statuspac();
                 cout<<"\n\nNovo status do paciente: "<<pacientes[i].status<<endl;
                 }
