@@ -11,6 +11,7 @@
 
         int i,nPacientes=0,totalUBS=0, nUBS=0,escolha,iPacientes=0, leitoTotal=0,iUBS=0,posicaoAnterior=0,ntotal = 0,posicaoAtual=0;
         char pesquisaCpf[17];
+        bool hospitais=false;
 
 
     //declaracao structs
@@ -68,17 +69,17 @@
       cin>>temperatura;
       if(temperatura>=38){
             total=total+10;
-            cout<<"total até agora: "<<total<<endl;//
+            //cout<<"total até agora: "<<total<<endl;//
             cout<<"\nanotado...\n"<<endl;
       }
-      cout<<"total até agora: "<<total<<endl;//
+      //cout<<"total até agora: "<<total<<endl;//
 
       cout<<"\ntem dificuldades para respirar? [s/n]\n"<<endl;
       cin>>resposta;
 
       if(resposta=='s' || resposta=='S'){
         total= total+30;
-        cout<<"total até agora: "<<total<<endl;//
+        //cout<<"total até agora: "<<total<<endl;//
         cout<<"\nanotado...\n"<<endl;
       }
       else{
@@ -90,33 +91,33 @@
       cin>>Oxigenacao;
       if(Oxigenacao<=90 && Oxigenacao>70){
         total = total+20;
-        cout<<"total até agora: "<<total<<endl;//
+        //cout<<"total até agora: "<<total<<endl;//
       }
       else if(Oxigenacao<=70)
         total = total+30;
-        cout<<"total até agora: "<<total<<endl;//
+        //cout<<"total até agora: "<<total<<endl;//
 
       cout<<"\napresenta sintomas de insuficiência renal[s/n]: "<<endl;
       cin>>resposta;
 
       if(resposta=='s'||resposta=='S'){
         total =total+30;
-        cout<<"total até agora: "<<total<<endl;//
+        //cout<<"total até agora: "<<total<<endl;//
         cout<<"\nanotado...\n"<<endl;
       }
 
       else{
-        cout<<"\n\ntudo bem, anotado!\n"<<endl;
+        //cout<<"\n\ntudo bem, anotado!\n"<<endl;
       }
      cout<<"o resultado foi: \n"<<total<<endl;
 
       if (total>=40){
-            cout<<"total até agora: "<<total<<endl;//
+            //cout<<"total até agora: "<<total<<endl;//
             return "Internado";
       }
 
       else if(total>=10&&total<40){
-            cout<<"total até agora: "<<total<<endl;//
+            //cout<<"total até agora: "<<total<<endl;//
             return "Em Observacao";
 
       }
@@ -176,6 +177,7 @@ int main()
     //cadastro de pacientes
     //
     if(escolha==1){
+        if(hospitais==true){
         cout<<"Quantos pacientes deseja cadastrar?\n\n "<<endl;
         cin>>nPacientes;
         cin.ignore();
@@ -221,14 +223,20 @@ int main()
             //questionario status
             //indice do paciente: cout<<"\n\nipacientes "<<iPacientes<<endl;
         }
+
+        }
+
         //end cadastro pacientes
 
+        else{
+        cout<<"\n\nERRO: Sem unidades cadastradas!\n\n"<<endl;
+        }
     }
     //
     //cadastro de ubs
     //
     else if(escolha==2){
-
+        hospitais = true;
         cout<<"\nQuantas UBS deseja cadastrar? \n\n"<<endl;
         cin>>nUBS;
         totalUBS =totalUBS+nUBS;
