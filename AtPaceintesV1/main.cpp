@@ -199,9 +199,10 @@ int main()
                 int atribuicao=0;
                 cin>>pesquisaUBS;
                 atribuicao = pesquisaUBS-1;
-                umed[atribuicao].nLeitos-1;
+                umed[atribuicao].nLeitos--;
                 leitoTotal-1;
                 strcpy(pacientes[iPacientes].localInternacao,umed[atribuicao].nome);
+                cout<<"leitos agora: "<<umed[atribuicao].nLeitos;
 
 
             }
