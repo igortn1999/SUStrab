@@ -59,7 +59,7 @@
     string statuspac(){
 
       float temperatura,Oxigenacao;
-      int total;
+      int total=0;
       char resposta;
 
       cout<<"\n\n\n ======= Questionario ========= \n\n\n";
@@ -68,15 +68,17 @@
       cin>>temperatura;
       if(temperatura>=38){
             total=total+10;
-            cout<<"total até agora: "<<total<<endl;
+            cout<<"total até agora: "<<total<<endl;//
             cout<<"\nanotado...\n"<<endl;
       }
+      cout<<"total até agora: "<<total<<endl;//
 
       cout<<"\ntem dificuldades para respirar? [s/n]\n"<<endl;
       cin>>resposta;
 
       if(resposta=='s' || resposta=='S'){
         total= total+30;
+        cout<<"total até agora: "<<total<<endl;//
         cout<<"\nanotado...\n"<<endl;
       }
       else{
@@ -88,15 +90,18 @@
       cin>>Oxigenacao;
       if(Oxigenacao<=90 && Oxigenacao>70){
         total = total+20;
+        cout<<"total até agora: "<<total<<endl;//
       }
       else if(Oxigenacao<=70)
         total = total+30;
+        cout<<"total até agora: "<<total<<endl;//
 
       cout<<"\napresenta sintomas de insuficiência renal[s/n]: "<<endl;
       cin>>resposta;
 
       if(resposta=='s'||resposta=='S'){
         total =total+30;
+        cout<<"total até agora: "<<total<<endl;//
         cout<<"\nanotado...\n"<<endl;
       }
 
@@ -106,15 +111,18 @@
      cout<<"o resultado foi: \n"<<total<<endl;
 
       if (total>=40){
+            cout<<"total até agora: "<<total<<endl;//
             return "Internado";
       }
 
       else if(total>=10&&total<40){
-        return "Em Observacao";
+            cout<<"total até agora: "<<total<<endl;//
+            return "Em Observacao";
 
       }
 
        else if(total<10){
+            cout<<"total até agora: "<<total<<endl;//
             return "Liberado";
 
        }
