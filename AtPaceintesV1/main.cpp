@@ -280,6 +280,17 @@ int main()
                 cout<<"\nFaça o questionario novamente:"<<endl;
                 pacientes[i].status = statuspac();
                 cout<<"\n\nNovo status do paciente: "<<pacientes[i].status<<endl;
+
+                if(pacientes[i].status=="Liberado"){
+                    statPac = pacientes[i].localInternacao;
+                    int i2=0;
+                    for(i2;i2<ntotal;i2++){
+                        if(umed[i2].nome==statPac){
+                            umed[i2].nLeitos++;
+                        }
+                    }
+                }
+
                 }
 
             }
