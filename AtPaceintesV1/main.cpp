@@ -68,6 +68,7 @@
       cin>>temperatura;
       if(temperatura>=38){
             total=total+10;
+            cout<<"total até agora: "<<total<<endl;
             cout<<"\nanotado...\n"<<endl;
       }
 
