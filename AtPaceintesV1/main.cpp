@@ -11,7 +11,7 @@
 
         int i,nPacientes=0,totalUBS=0, nUBS=0,escolha,iPacientes=0, leitoTotal=0,iUBS=0,posicaoAnterior=0,ntotal = 0,posicaoAtual=0;
         char pesquisaCpf[17];
-        bool hospitais=false;
+        bool hospitais=false;//variavel que habilita os hospitais
 
 
     //declaracao structs
@@ -177,6 +177,9 @@ int main()
     //cadastro de pacientes
     //
     if(escolha==1){
+            //habilitacao dos hospitais
+            //caso contrario nao e possivel
+            //colocar pacientes.
         if(hospitais==true){
         cout<<"Quantos pacientes deseja cadastrar?\n\n "<<endl;
         cin>>nPacientes;
@@ -236,6 +239,7 @@ int main()
     //cadastro de ubs
     //
     else if(escolha==2){
+        //hablitiando o cadastro de pacientes
         hospitais = true;
         cout<<"\nQuantas UBS deseja cadastrar? \n\n"<<endl;
         cin>>nUBS;
@@ -331,4 +335,4 @@ int main()
 
     return 0;
 }
-//FEIJAO DOCE
+
