@@ -67,19 +67,21 @@
       cout<<"digite a temperatura do paciente"<<endl;
 
       cin>>temperatura;
+      while(temperatura<20 || temperatura>42){
+        cout<<"\nTemperatura inválida!"<<endl;
+        cout<<"\n\Digite a temperatura novamente: "<<endl;
+        cin>>temperatura;
+      }
       if(temperatura>=38){
             total=total+10;
-            //cout<<"total até agora: "<<total<<endl;//
             cout<<"\nanotado...\n"<<endl;
       }
-      //cout<<"total até agora: "<<total<<endl;//
 
       cout<<"\ntem dificuldades para respirar? [s/n]\n"<<endl;
       cin>>resposta;
 
       if(resposta=='s' || resposta=='S'){
         total= total+30;
-        //cout<<"total até agora: "<<total<<endl;//
         cout<<"\nanotado...\n"<<endl;
       }
       else{
@@ -91,39 +93,31 @@
       cin>>Oxigenacao;
       if(Oxigenacao<=90 && Oxigenacao>70){
         total = total+20;
-        //cout<<"total até agora: "<<total<<endl;//
       }
       else if(Oxigenacao<=70)
         total = total+30;
-        //cout<<"total até agora: "<<total<<endl;//
 
       cout<<"\napresenta sintomas de insuficiência renal[s/n]: "<<endl;
       cin>>resposta;
 
       if(resposta=='s'||resposta=='S'){
         total =total+30;
-        //cout<<"total até agora: "<<total<<endl;//
         cout<<"\nanotado...\n"<<endl;
       }
 
       else{
-        //cout<<"\n\ntudo bem, anotado!\n"<<endl;
       }
-     cout<<"o resultado foi: \n"<<total<<endl;
 
       if (total>=40){
-            //cout<<"total até agora: "<<total<<endl;//
             return "Internado";
       }
 
       else if(total>=10&&total<40){
-            //cout<<"total até agora: "<<total<<endl;//
             return "Em Observacao";
 
       }
 
        else if(total<10){
-            cout<<"total até agora: "<<total<<endl;//
             return "Liberado";
 
        }
@@ -132,18 +126,11 @@
 
     }
 
-    //end declaracao funcoes
 
 int main()
 {
     bool loop=0;
     setlocale(LC_ALL,"");
-
-    //fazer menu
-    //registro de paciente precisa ter questionario
-    //consulta por cpf
-    //alteração de status
-    //sair do programa
     //intro
     cout<<"\t\t\t*********\t\t\t"<<endl;
     cout<<"\t\t\t*********\t\t\t"<<endl;
@@ -180,11 +167,18 @@ int main()
             //habilitacao dos hospitais
             //caso contrario nao e possivel
             //colocar pacientes.
+        if(leitoTotal==0){
+        hospitais=false;
+        }
+        else{
+            hospitais=true;
+        };
+
         if(hospitais==true){
         cout<<"Quantos pacientes deseja cadastrar?\n\n "<<endl;
         cin>>nPacientes;
         cin.ignore();
-
+        if(nPacientes<=leitoTotal){
         ntotal = ntotal+nPacientes;
 
         for(iPacientes;iPacientes<ntotal;iPacientes++){
@@ -214,7 +208,7 @@ int main()
                 cin>>pesquisaUBS;
                 atribuicao = pesquisaUBS-1;
                 umed[atribuicao].nLeitos--;
-                leitoTotal-1;
+                leitoTotal--;
                 strcpy(pacientes[iPacientes].localInternacao,umed[atribuicao].nome);
                 cout<<"leitos agora: "<<umed[atribuicao].nLeitos;
 
@@ -226,13 +220,17 @@ int main()
             //questionario status
             //indice do paciente: cout<<"\n\nipacientes "<<iPacientes<<endl;
         }
+        }
+        else{
+          cout<<"ERRO: Mais pacientes do que leitos!"<<endl;
+        }
 
         }
 
         //end cadastro pacientes
 
         else{
-        cout<<"\n\nERRO: Sem unidades cadastradas!\n\n"<<endl;
+        cout<<"\n\nERRO: Sem unidades cadastradas ou sem Leitos!\n\n"<<endl;
         }
     }
     //
@@ -311,6 +309,7 @@ int main()
                             umed[i2].nLeitos++;
                         }
                     }
+                    leitoTotal++;
                 }
 
                 }
