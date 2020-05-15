@@ -1,4 +1,11 @@
-//oq falta fazer? o sistema de colocar leitos de volta quando um paciente for curado, nao sei como fazer /to cansado
+//######################################################
+//#                                                    #
+//# DESENVOLVEDORES:                                   #
+//# NOME: Jan Peter Merkel RM:81896                    #
+//# NOME: Igor Tomazelli Nietmann RM:81808?            #
+//# NOME: integrante rafael la    RM:?????             #
+//#                                                    #
+//######################################################
 //algumas condicoes tipo frebre de 100 graus e aceita no sistema,precisamos testar
 #include <iostream>
 #include <locale>
@@ -126,7 +133,7 @@
 
     }
 
-
+//COMECO DO PROGRAMA
 int main()
 {
     bool loop=0;
@@ -164,9 +171,10 @@ int main()
     //cadastro de pacientes
     //
     if(escolha==1){
-            //habilitacao dos hospitais
-            //caso contrario nao e possivel
-            //colocar pacientes.
+        //habilitacao dos hospitais caso contrario nao e possivel colocar pacientes.
+        //se o n de leitos for zero os hospitais sao impossibilitados de receber pacientes.
+
+
         if(leitoTotal==0){
         hospitais=false;
         }
@@ -178,6 +186,8 @@ int main()
         cout<<"Quantos pacientes deseja cadastrar?\n\n "<<endl;
         cin>>nPacientes;
         cin.ignore();
+
+        //compara o numero de pacientes aos leitos disponiveis antes de executar algo
         if(nPacientes<=leitoTotal){
         ntotal = ntotal+nPacientes;
 
@@ -194,7 +204,7 @@ int main()
                 cout<<"\n\n"<<status<<endl;
                 pacientes[iPacientes].status = status;
 
-        //bloco de codigo que vai procurar uma ubs com leitos disponiveis
+            //bloco de codigo que vai procurar uma ubs com leitos disponiveis
 
             if(pacientes[iPacientes].status=="Internado" || pacientes[iPacientes].status=="Em Observacao"){
 
@@ -213,12 +223,10 @@ int main()
                 cout<<"leitos agora: "<<umed[atribuicao].nLeitos;
 
 
-            }
+            }   //end status
                 //end pesquisa UBS
             cout<<"\n----------------------------------------------"<<endl;
             cin.ignore();
-            //questionario status
-            //indice do paciente: cout<<"\n\nipacientes "<<iPacientes<<endl;
         }
         }
         else{
@@ -243,7 +251,7 @@ int main()
         cin>>nUBS;
         totalUBS =totalUBS+nUBS;
         cin.ignore();
-
+        //loop que passa pelo total de UBS
         for(iUBS;iUBS<totalUBS;iUBS++){
             cout<<"\nDigite o nome da unidade médica: "<<endl;
             cin.getline(umed[iUBS].nome,NCAR);
@@ -257,6 +265,9 @@ int main()
         }
         cout<<"\nNumero total de leitos disponiveis: "<<leitoTotal<<endl;
     }
+    //
+    //end cadastro UBS
+
     //
     //busca de cpf
     //
@@ -283,6 +294,9 @@ int main()
             cout<<"\nNão há nenhum paciente registrado!!"<<endl;
         }
     }
+    //
+    // end busca CPF
+
     //
     //alteracao de status
     //
@@ -320,6 +334,8 @@ int main()
             cout<<"\nNão há nenhum paciente registrado!!"<<endl;
         }
     }
+    //
+    //end alteracao status
 
     //
     // sair do programa
