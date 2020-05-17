@@ -200,13 +200,13 @@ int main()
         ntotal = ntotal+nPacientes;
 
         for(iPacientes;iPacientes<ntotal;iPacientes++){
-            cout<<"\ndigite o nome do paciente:"<<endl;
+            cout<<"\nDigite o nome do paciente:"<<endl;
             cin.getline(pacientes[iPacientes].nome,NCAR);
-            cout<<"\ndigite o cpf do paciente:"<<endl;
+            cout<<"\nDigite o cpf do paciente:"<<endl;
             cin.getline(pacientes[iPacientes].cpf,17);
 
             //status
-            cout<<"\n\n para o status iremos a um questionário!"<<endl;
+            cout<<"\n\n Para o status iremos a um questionário!"<<endl;
                 string status;
                 status = statuspac();
                 cout<<"\n\n"<<status<<endl;
@@ -228,7 +228,7 @@ int main()
                 umed[atribuicao].nLeitos--;
                 leitoTotal--;
                 strcpy(pacientes[iPacientes].localInternacao,umed[atribuicao].nome);
-                cout<<"leitos agora: "<<umed[atribuicao].nLeitos;
+                cout<<"Leitos agora: "<<umed[atribuicao].nLeitos;
 
 
             }   //end status
