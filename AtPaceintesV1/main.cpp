@@ -2,11 +2,15 @@
 //#                                                    #
 //# DESENVOLVEDORES:                                   #
 //# NOME: Jan Peter Merkel RM:81896                    #
-//# NOME: Igor Tomazelli Nietmann RM:81808?            #
-//# NOME: integrante rafael la    RM:?????             #
+//# NOME: Igor Tomazelli Nietmann RM:82808             #
+//# NOME: Rafael Fernandes Cruz Caldeira    RM:82776   #
 //#                                                    #
 //######################################################
-//algumas condicoes tipo frebre de 100 graus e aceita no sistema,precisamos testar
+
+//algumas condicoes tipo frebre de 100 graus e aceita no sistema,precisamos testar - Já corrigiu
+//Reparei que dá pra colocar mais de uma UBS com o mesmo nome, e isso buga tudo kkkk
+//Limitar o novel de oxigenação para o maximo ser 100% e o minimo 0% -Já corrigi
+
 #include <iostream>
 #include <locale>
 #include <cstring>
@@ -71,7 +75,7 @@
       char resposta;
 
       cout<<"\n\n\n ======= Questionario ========= \n\n\n";
-      cout<<"digite a temperatura do paciente"<<endl;
+      cout<<"Digite a temperatura do paciente"<<endl;
 
       cin>>temperatura;
       while(temperatura<20 || temperatura>42){
@@ -81,35 +85,39 @@
       }
       if(temperatura>=38){
             total=total+10;
-            cout<<"\nanotado...\n"<<endl;
+            cout<<"\nAnotado...\n"<<endl;
       }
 
-      cout<<"\ntem dificuldades para respirar? [s/n]\n"<<endl;
+      cout<<"\nTem dificuldades para respirar? [s/n]\n"<<endl;
       cin>>resposta;
 
       if(resposta=='s' || resposta=='S'){
         total= total+30;
-        cout<<"\nanotado...\n"<<endl;
+        cout<<"\nAnotado...\n"<<endl;
       }
       else{
-        cout<<"\n\nok...\n\n"<<endl;
+        cout<<"\n\nOk...\n\n"<<endl;
       };
-
-
-      cout<<"Digite a Oxigenacao do sangue (em %): "<<endl;
+      cout<<"\nDigite a Oxigenacao do sangue (em %): "<<endl;
       cin>>Oxigenacao;
-      if(Oxigenacao<=90 && Oxigenacao>70){
-        total = total+20;
-      }
-      else if(Oxigenacao<=70)
-        total = total+30;
+      do{
+        cout<<"\nNivel de oxigenação invalido, por favor insira novamente: "<<endl;
+        cin>>Oxigenacao;
+      }while(Oxigenacao<=0||Oxigenacao>100);
 
-      cout<<"\napresenta sintomas de insuficiência renal[s/n]: "<<endl;
+      if(Oxigenacao<=90 && Oxigenacao>70){
+            total = total+20;
+      }
+      else if(Oxigenacao<=70){
+            total = total+30;
+      }
+
+      cout<<"\nApresenta sintomas de insuficiência renal[s/n]: "<<endl;
       cin>>resposta;
 
       if(resposta=='s'||resposta=='S'){
         total =total+30;
-        cout<<"\nanotado...\n"<<endl;
+        cout<<"\nAnotado...\n"<<endl;
       }
 
       else{
@@ -203,7 +211,7 @@ int main()
                 status = statuspac();
                 cout<<"\n\n"<<status<<endl;
                 pacientes[iPacientes].status = status;
-
+            //Ex1Funcoes ERA AQUI Q ACHO Q TUNHA APAGADO O COMENTARIO Q N DEVIA pelo visto n ferrou nada mas é bom dar uma olhada
             //bloco de codigo que vai procurar uma ubs com leitos disponiveis
 
             if(pacientes[iPacientes].status=="Internado" || pacientes[iPacientes].status=="Em Observacao"){
