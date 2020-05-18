@@ -8,8 +8,10 @@
 //######################################################
 
 //algumas condicoes tipo frebre de 100 graus e aceita no sistema,precisamos testar - Já corrigiu
-//Reparei que dá pra colocar mais de uma UBS com o mesmo nome, e isso buga tudo kkkk
+//Reparei que dá pra colocar mais de uma UBS com o mesmo nome, e isso buga tudo kkkk -Já corrigi
 //Limitar o novel de oxigenação para o maximo ser 100% e o minimo 0% -Já corrigi
+//Fazer uma condição pra não poder colocar o paciente num numero q n existe
+//COLOCAR O MEDICO Q CUIDA
 
 #include <iostream>
 #include <locale>
@@ -60,7 +62,7 @@
     cout<<"\t 2.para cadastrar unidade de saúde     5.para sair do programa\n"<<endl;
     cout<<"\t 3.consulta de paciente por cpf\n"<<endl;
     cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-    cout<<"digite o número uma opção:\n\n"<<endl;
+    cout<<"digite o número de uma opção:\n\n"<<endl;
     };
 
 
@@ -100,10 +102,10 @@
       };
       cout<<"\nDigite a Oxigenacao do sangue (em %): "<<endl;
       cin>>Oxigenacao;
-      do{
+      while(Oxigenacao<=0||Oxigenacao>100){
         cout<<"\nNivel de oxigenação invalido, por favor insira novamente: "<<endl;
         cin>>Oxigenacao;
-      }while(Oxigenacao<=0||Oxigenacao>100);
+      }
 
       if(Oxigenacao<=90 && Oxigenacao>70){
             total = total+20;
@@ -136,7 +138,6 @@
             return "Liberado";
 
        }
-
 
 
     }
@@ -261,8 +262,24 @@ int main()
         cin.ignore();
         //loop que passa pelo total de UBS
         for(iUBS;iUBS<totalUBS;iUBS++){
+            //
+            char cmp[NCAR];
+            int i2;
             cout<<"\nDigite o nome da unidade médica: "<<endl;
-            cin.getline(umed[iUBS].nome,NCAR);
+            cin.getline(cmp, NCAR);
+            cout<<"cmp: "<<cmp<<endl;
+            //verifica se já há uma unidade com o nome registrado
+            for(i2=0;i2<totalUBS;i2++){
+                    while((strcmp(umed[i2].nome, cmp)==0) && (i2!=iUBS)){
+                    //cout<<"i2: "<<i2<<endl;
+                    //cout<<"iUBS: "<<iUBS<<endl;
+                    cout<<"\nJá há uma unidade com este nome, tente novamente: "<<endl;
+                    cin.getline(cmp,NCAR);
+                    }
+            }
+            strcpy(umed[iUBS].nome, cmp);
+            cout<<"umed[iubs].nome: "<<umed[iUBS].nome<<endl;
+
             cout<<"\nDigite o telefone da unidade médica: "<<endl;
             cin.getline(umed[iUBS].telefone,NCAR);
             cout<<"\nDigite o número de leitos disponíveis: "<<endl;
