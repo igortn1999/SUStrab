@@ -11,7 +11,8 @@
 //Reparei que dá pra colocar mais de uma UBS com o mesmo nome, e isso buga tudo kkkk -Já corrigi
 //Limitar o novel de oxigenação para o maximo ser 100% e o minimo 0% -Já corrigi
 //Fazer uma condição pra não poder colocar o paciente num numero q n existe
-//COLOCAR O MEDICO Q CUIDA
+//COLOCAR O MEDICO Q CUIDA-ja fiz
+//coloquei a data de nascimento dos pacientes
 
 #include <iostream>
 #include <locale>
@@ -68,7 +69,7 @@
 
     //
     //status paciente
-    //ela funciona com um indice de 0 ate 100
+    //ela funciona com um indice de 0 ate 100 sendo 100 o mais grave possível
     //
     string statuspac(){
 
@@ -158,7 +159,6 @@ int main()
     cout<<"\t\t\t*********\t\t\t"<<endl;
     cout<<"\t\t\t*********\t\t\t"<<endl;
     cout<<"\t\t\t*********\t\t\t"<<endl;
-    //cout<<"\n\n\n ========================================SISTEMA MEDICO=========================================================== \n\n\n"<<endl;
     //
     //
     //
@@ -203,14 +203,21 @@ int main()
         for(iPacientes;iPacientes<ntotal;iPacientes++){
             cout<<"\nDigite o nome do paciente:"<<endl;
             cin.getline(pacientes[iPacientes].nome,NCAR);
+            cout<<"\nDigite a data de nascimento do paciente: "<<endl;
+            cin>>pacientes[iPacientes].anoNasc;
+            cin.ignore();
             cout<<"\nDigite o cpf do paciente:"<<endl;
             cin.getline(pacientes[iPacientes].cpf,17);
+            cout<<"\nDigite o nome do Médico responsável: \n"<<endl;
+            cin.getline(pacientes[iPacientes].medicoResponsavel,NCAR);
 
             //status
             cout<<"\n\n Para o status iremos a um questionário!"<<endl;
                 string status;
                 status = statuspac();
-                cout<<"\n\n"<<status<<endl;
+                cout<<"\n\n --------------  Condição do Paciente  --------------"<<endl;
+                cout<<"| "<<status<<"                                          |"<<endl;
+                cout<<" ----------------------------------------------------\n"<<endl;
                 pacientes[iPacientes].status = status;
             //Ex1Funcoes ERA AQUI Q ACHO Q TUNHA APAGADO O COMENTARIO Q N DEVIA pelo visto n ferrou nada mas é bom dar uma olhada
             //bloco de codigo que vai procurar uma ubs com leitos disponiveis
@@ -219,17 +226,28 @@ int main()
 
                 cout<<"\n\n+++++++ Selecione a UBS: +++++++\n\n"<<endl;
                 int pesquisaUBS=0;
+
+                //busca das ubs disponíveis
+
                 for(pesquisaUBS;pesquisaUBS<totalUBS;pesquisaUBS++){
                     cout<<"NOME INSTITUIÇÃO ["<<pesquisaUBS+1<<"]: "<<umed[pesquisaUBS].nome<<"\nLEITOS DISPONÍVEIS: "<<umed[pesquisaUBS].nLeitos<<endl;
                 }
-                cout<<"\n\n Selecione o número da UBS: "<<endl;
                 int atribuicao=0;
+                do{
+                 if(umed[atribuicao].nLeitos==-1){
+                     cout<<"\n\nERRO: Local de internação inválido!\n\n"<<endl;
+                }
+                cout<<"\n\n Selecione o número da UBS: "<<endl;
                 cin>>pesquisaUBS;
                 atribuicao = pesquisaUBS-1;
                 umed[atribuicao].nLeitos--;
                 leitoTotal--;
+
+                }while(umed[atribuicao].nLeitos==-1);
+
                 strcpy(pacientes[iPacientes].localInternacao,umed[atribuicao].nome);
-                cout<<"Leitos agora: "<<umed[atribuicao].nLeitos;
+                cout<<"\n\n\n----------------------------------------------\n"<<endl;
+                cout<<"\n\nLeitos agora: "<<umed[atribuicao].nLeitos;
 
 
             }   //end status
@@ -237,10 +255,10 @@ int main()
             cout<<"\n----------------------------------------------"<<endl;
             cin.ignore();
         }
-        }
+        }//liga no else
         else{
-          cout<<"ERRO: Mais pacientes do que leitos!"<<endl;
-        }
+          cout<<"ERRO: Mais pacientes do que leitos disponíveis!"<<endl;
+        }//end if da verificacao de pacientes>leitos
 
         }
 
@@ -267,7 +285,7 @@ int main()
             int i2;
             cout<<"\nDigite o nome da unidade médica: "<<endl;
             cin.getline(cmp, NCAR);
-            cout<<"cmp: "<<cmp<<endl;
+            //cout<<"cmp: "<<cmp<<endl;
             //verifica se já há uma unidade com o nome registrado
             for(i2=0;i2<totalUBS;i2++){
                     while((strcmp(umed[i2].nome, cmp)==0) && (i2!=iUBS)){
@@ -278,7 +296,7 @@ int main()
                     }
             }
             strcpy(umed[iUBS].nome, cmp);
-            cout<<"umed[iubs].nome: "<<umed[iUBS].nome<<endl;
+            //cout<<"umed[iubs].nome: "<<umed[iUBS].nome<<endl;
 
             cout<<"\nDigite o telefone da unidade médica: "<<endl;
             cin.getline(umed[iUBS].telefone,NCAR);
@@ -369,7 +387,7 @@ int main()
             loop=1;
     }
     else{
-        cout<<"\nOPÇÃO INVALIDA, TENTE NOVAMENTE!!"<<endl;
+        cout<<"\nOPÇÃO INVALIDA, TENTE NOVAMENTE!!"<<endl;//Programa grosso, grita com os outros
     }
     }while(loop==0);
 
