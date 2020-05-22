@@ -341,7 +341,7 @@ int main()
     //
     else if(escolha==4){
         cout<<"\nDigite o cpf do paciente que deve ter os seus dados alterados: "<<endl;
-        cin.getline(pesquisaCpf, 11);
+        cin.getline(pesquisaCpf, 17);
 
     if(nPacientes>0){
 
