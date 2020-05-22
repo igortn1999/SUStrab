@@ -7,12 +7,12 @@
 //#                                                    #
 //######################################################
 
-//algumas condicoes tipo frebre de 100 graus e aceita no sistema,precisamos testar - Já corrigiu
-//Reparei que dá pra colocar mais de uma UBS com o mesmo nome, e isso buga tudo kkkk -Já corrigi
-//Limitar o novel de oxigenação para o maximo ser 100% e o minimo 0% -Já corrigi
-//Fazer uma condição pra não poder colocar o paciente num numero q n existe -Corrigido
-//COLOCAR O MEDICO Q CUIDA-ja fiz
-//coloquei a data de nascimento dos pacientes
+//              METODOS UTILIZADOS:
+// 1- para a distribuição entre unidades de atendimento: é feito de forma arbitrária, pode ser escolhido pelo operador do programa.
+// Nosso programa não permite a atribuição a leitos indisponíveis e nem a leitos inexistentes.
+//
+// 2- A escolha do estado do paciente é feita de acordo com um questionario baseado nos principais sintomas da COVID-19
+// a escala possui um intervalo de 0 a 100 sendo 0(zero) um paciente supostamente saudável e 100 um paciente em estado crítico.
 
 #include <iostream>
 #include <locale>
@@ -25,7 +25,7 @@
 
         int i,nPacientes=0,totalUBS=0, nUBS=0,escolha,iPacientes=0, leitoTotal=0,iUBS=0,posicaoAnterior=0,ntotal = 0,posicaoAtual=0;
         char pesquisaCpf[17];
-        bool hospitais=false;//variavel que habilita os hospitais
+        bool hospitais=false;       //variavel que habilita os hospitais
 
 
     //declaracao structs
@@ -49,7 +49,9 @@
 
 
 
-    /////end structs
+    //
+    //
+    //end structs
 
 
 
@@ -80,7 +82,7 @@
       cout<<"Digite a temperatura do paciente"<<endl;
 
       cin>>temperatura;
-      while(temperatura<20 || temperatura>42){
+      while(temperatura<20 || temperatura>43){
         cout<<"\nTemperatura inválida!"<<endl;
         cout<<"\n\Digite a temperatura novamente: "<<endl;
         cin>>temperatura;
@@ -159,47 +161,37 @@ int main()
     cout<<"\t\t\t*********\t\t\t"<<endl;
     cout<<"\t\t\t*********\t\t\t"<<endl;
     //
-    //
-    //
-    //
     //chamando o menu
     //
     do{
     menu();
     //
-    //
-    //
-    //
     // aqui acontece a escolha do item do menu
     //
     cin>>escolha;
     cin.ignore();
+
     if(escolha==1){
-        //hablitiando o cadastro de pacientes
-        hospitais = true;
+        hospitais = true;       //hablitiando o cadastro de pacientes
         cout<<"\nQuantas UBS deseja cadastrar? \n\n"<<endl;
         cin>>nUBS;
         totalUBS =totalUBS+nUBS;
         cin.ignore();
-        //loop que passa pelo total de UBS
-        for(iUBS;iUBS<totalUBS;iUBS++){
-            //
+
+        for(iUBS;iUBS<totalUBS;iUBS++){     //loop que passa pelo total de UBS
             char cmp[NCAR];
             int i2;
             cout<<"\nDigite o nome da unidade médica: "<<endl;
             cin.getline(cmp, NCAR);
-            //cout<<"cmp: "<<cmp<<endl;
-            //verifica se já há uma unidade com o nome registrado
-            for(i2=0;i2<totalUBS;i2++){
+
+            for(i2=0;i2<totalUBS;i2++){     //verifica se já há uma unidade com o nome registrado
+
                     while((strcmp(umed[i2].nome, cmp)==0) && (i2!=iUBS)){
-                    //cout<<"i2: "<<i2<<endl;
-                    //cout<<"iUBS: "<<iUBS<<endl;
                     cout<<"\nJá há uma unidade com este nome, tente novamente: "<<endl;
                     cin.getline(cmp,NCAR);
                     }
             }
             strcpy(umed[iUBS].nome, cmp);
-            //cout<<"umed[iubs].nome: "<<umed[iUBS].nome<<endl;
 
             cout<<"\nDigite o telefone da unidade médica: "<<endl;
             cin.getline(umed[iUBS].telefone,NCAR);
@@ -234,8 +226,7 @@ int main()
         cin>>nPacientes;
         cin.ignore();
 
-        //compara o numero de pacientes aos leitos disponiveis antes de executar algo
-        if(nPacientes<=leitoTotal){
+        if(nPacientes<=leitoTotal){     //compara o numero de pacientes aos leitos disponiveis antes de executar algo
         ntotal = ntotal+nPacientes;
 
         for(iPacientes;iPacientes<ntotal;iPacientes++){
@@ -243,12 +234,13 @@ int main()
             cin.getline(pacientes[iPacientes].nome,NCAR);
             cout<<"\nDigite a data de nascimento do paciente: "<<endl;
             cin.getline(pacientes[iPacientes].anoNasc, 11);
-            //cin.ignore();
             cout<<"\nDigite o cpf do paciente:"<<endl;
             cin.getline(pacientes[iPacientes].cpf,17);
             cout<<"\nDigite o nome do Médico responsável: \n"<<endl;
             cin.getline(pacientes[iPacientes].medicoResponsavel,NCAR);
 
+            //
+            //
             //status
             cout<<"\n\n Para o status iremos a um questionário!"<<endl;
                 string status;
@@ -257,7 +249,8 @@ int main()
                 cout<<"| "<<status<<"                                          |"<<endl;
                 cout<<" ----------------------------------------------------\n"<<endl;
                 pacientes[iPacientes].status = status;
-            //Ex1Funcoes ERA AQUI Q ACHO Q TUNHA APAGADO O COMENTARIO Q N DEVIA pelo visto n ferrou nada mas é bom dar uma olhada
+
+
             //bloco de codigo que vai procurar uma ubs com leitos disponiveis
 
             if(pacientes[iPacientes].status=="Internado" || pacientes[iPacientes].status=="Em Observacao"){
@@ -271,21 +264,23 @@ int main()
                     cout<<"NOME INSTITUIÇÃO ["<<pesquisaUBS+1<<"]: "<<umed[pesquisaUBS].nome<<"\nLEITOS DISPONÍVEIS: "<<umed[pesquisaUBS].nLeitos<<endl;
                 }
                 int atribuicao=0;
+
                 do{
                  if(umed[atribuicao].nLeitos==-1){
                      cout<<"\n\nERRO: Local de internação inválido!\n\n"<<endl;
+                     leitoTotal++;
                 }
                 cout<<"\n\n Selecione o número da UBS: "<<endl;
                 cin>>pesquisaUBS;
                 atribuicao = pesquisaUBS-1;
                 umed[atribuicao].nLeitos--;
                 leitoTotal--;
-
                 }while(umed[atribuicao].nLeitos==-1);
 
                 strcpy(pacientes[iPacientes].localInternacao,umed[atribuicao].nome);
-                cout<<"\n\n\n----------------------------------------------\n"<<endl;
-                cout<<"\n\nLeitos agora: "<<umed[atribuicao].nLeitos;
+                cout<<"\n\n\n----------------------------------------------"<<endl;
+                cout<<"\nLeitos restantes: "<<leitoTotal<<endl;
+                cout<<"\nLeitos restantes da UBS selecionada: "<<umed[atribuicao].nLeitos;
 
 
             }   //end status
@@ -306,9 +301,6 @@ int main()
         cout<<"\n\nERRO: Sem unidades cadastradas ou sem Leitos!\n\n"<<endl;
         }
     }
-    //
-    //cadastro de ubs
-    //
 
     //
     //busca de cpf
