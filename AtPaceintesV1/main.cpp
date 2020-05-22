@@ -10,7 +10,7 @@
 //algumas condicoes tipo frebre de 100 graus e aceita no sistema,precisamos testar - Já corrigiu
 //Reparei que dá pra colocar mais de uma UBS com o mesmo nome, e isso buga tudo kkkk -Já corrigi
 //Limitar o novel de oxigenação para o maximo ser 100% e o minimo 0% -Já corrigi
-//Fazer uma condição pra não poder colocar o paciente num numero q n existe
+//Fazer uma condição pra não poder colocar o paciente num numero q n existe -Corrigido
 //COLOCAR O MEDICO Q CUIDA-ja fiz
 //coloquei a data de nascimento dos pacientes
 
@@ -31,9 +31,8 @@
     //declaracao structs
 
     struct declDadosPaciente{
-        char nome[NCAR],cpf[17],localInternacao[NCAR],medicoResponsavel[NCAR];
+        char nome[NCAR],cpf[17],localInternacao[NCAR],medicoResponsavel[NCAR], anoNasc[11];
         string status;
-        int anoNasc;
     };
 
     struct declDadosUnidadeMedica{
@@ -59,8 +58,8 @@
     void menu(){
     cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MENU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     cout<<"\n selecione o que deseja fazer:\n\n"<<endl;
-    cout<<"\t 1.para cadastrar paciente             4.para alterar o status de um paciente\n"<<endl;
-    cout<<"\t 2.para cadastrar unidade de saúde     5.para sair do programa\n"<<endl;
+    cout<<"\t 1.para cadastrar unidade de saúde     4.para alterar o status de um paciente\n"<<endl;
+    cout<<"\t 2.para cadastrar paciente             5.para sair do programa\n"<<endl;
     cout<<"\t 3.consulta de paciente por cpf\n"<<endl;
     cout<<"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     cout<<"digite o número de uma opção:\n\n"<<endl;
@@ -175,11 +174,50 @@ int main()
     //
     cin>>escolha;
     cin.ignore();
+    if(escolha==1){
+        //hablitiando o cadastro de pacientes
+        hospitais = true;
+        cout<<"\nQuantas UBS deseja cadastrar? \n\n"<<endl;
+        cin>>nUBS;
+        totalUBS =totalUBS+nUBS;
+        cin.ignore();
+        //loop que passa pelo total de UBS
+        for(iUBS;iUBS<totalUBS;iUBS++){
+            //
+            char cmp[NCAR];
+            int i2;
+            cout<<"\nDigite o nome da unidade médica: "<<endl;
+            cin.getline(cmp, NCAR);
+            //cout<<"cmp: "<<cmp<<endl;
+            //verifica se já há uma unidade com o nome registrado
+            for(i2=0;i2<totalUBS;i2++){
+                    while((strcmp(umed[i2].nome, cmp)==0) && (i2!=iUBS)){
+                    //cout<<"i2: "<<i2<<endl;
+                    //cout<<"iUBS: "<<iUBS<<endl;
+                    cout<<"\nJá há uma unidade com este nome, tente novamente: "<<endl;
+                    cin.getline(cmp,NCAR);
+                    }
+            }
+            strcpy(umed[iUBS].nome, cmp);
+            //cout<<"umed[iubs].nome: "<<umed[iUBS].nome<<endl;
+
+            cout<<"\nDigite o telefone da unidade médica: "<<endl;
+            cin.getline(umed[iUBS].telefone,NCAR);
+            cout<<"\nDigite o número de leitos disponíveis: "<<endl;
+            cin>>umed[iUBS].nLeitos;
+            leitoTotal=(leitoTotal + umed[iUBS].nLeitos);
+            cin.ignore();
+            cout<<"----------------------------------------------"<<endl;
+        }
+        cout<<"\nNumero total de leitos disponiveis: "<<leitoTotal<<endl;
+    }
+    //
+    //end cadastro UBS
 
     //
     //cadastro de pacientes
     //
-    if(escolha==1){
+    else if(escolha==2){
         //habilitacao dos hospitais caso contrario nao e possivel colocar pacientes.
         //se o n de leitos for zero os hospitais sao impossibilitados de receber pacientes.
 
@@ -204,8 +242,8 @@ int main()
             cout<<"\nDigite o nome do paciente:"<<endl;
             cin.getline(pacientes[iPacientes].nome,NCAR);
             cout<<"\nDigite a data de nascimento do paciente: "<<endl;
-            cin>>pacientes[iPacientes].anoNasc;
-            cin.ignore();
+            cin.getline(pacientes[iPacientes].anoNasc, 11);
+            //cin.ignore();
             cout<<"\nDigite o cpf do paciente:"<<endl;
             cin.getline(pacientes[iPacientes].cpf,17);
             cout<<"\nDigite o nome do Médico responsável: \n"<<endl;
@@ -271,56 +309,19 @@ int main()
     //
     //cadastro de ubs
     //
-    else if(escolha==2){
-        //hablitiando o cadastro de pacientes
-        hospitais = true;
-        cout<<"\nQuantas UBS deseja cadastrar? \n\n"<<endl;
-        cin>>nUBS;
-        totalUBS =totalUBS+nUBS;
-        cin.ignore();
-        //loop que passa pelo total de UBS
-        for(iUBS;iUBS<totalUBS;iUBS++){
-            //
-            char cmp[NCAR];
-            int i2;
-            cout<<"\nDigite o nome da unidade médica: "<<endl;
-            cin.getline(cmp, NCAR);
-            //cout<<"cmp: "<<cmp<<endl;
-            //verifica se já há uma unidade com o nome registrado
-            for(i2=0;i2<totalUBS;i2++){
-                    while((strcmp(umed[i2].nome, cmp)==0) && (i2!=iUBS)){
-                    //cout<<"i2: "<<i2<<endl;
-                    //cout<<"iUBS: "<<iUBS<<endl;
-                    cout<<"\nJá há uma unidade com este nome, tente novamente: "<<endl;
-                    cin.getline(cmp,NCAR);
-                    }
-            }
-            strcpy(umed[iUBS].nome, cmp);
-            //cout<<"umed[iubs].nome: "<<umed[iUBS].nome<<endl;
-
-            cout<<"\nDigite o telefone da unidade médica: "<<endl;
-            cin.getline(umed[iUBS].telefone,NCAR);
-            cout<<"\nDigite o número de leitos disponíveis: "<<endl;
-            cin>>umed[iUBS].nLeitos;
-            leitoTotal=(leitoTotal + umed[iUBS].nLeitos);
-            cin.ignore();
-            cout<<"----------------------------------------------"<<endl;
-        }
-        cout<<"\nNumero total de leitos disponiveis: "<<leitoTotal<<endl;
-    }
-    //
-    //end cadastro UBS
 
     //
     //busca de cpf
     //
     else if(escolha==3){
         if(nPacientes>0){
+            bool achou=0;
             cout<<"\nDigite o cpf que deseja buscar: "<<endl;
             cin.getline(pesquisaCpf, 17);
             //cin.ignore();
             for(i=0;i<ntotal;i++){
                 if(strcmp(pesquisaCpf, pacientes[i].cpf)==0){
+                    achou =1;
                     cout<<"\n\n\n"<<endl;
                     cout<<"Paciente encontrado!!!\nInformações: \n"<<endl;
                     cout<<"CPF : "<<pacientes[i].cpf<<endl;
@@ -331,6 +332,9 @@ int main()
                     cout<<"ANO DE NASCIMENTO: "<<pacientes[i].anoNasc<<endl;
                     cout<<"\n----------------------------------------------\n"<<endl;
                 }
+            }
+            if(achou==0){
+                cout<<"\nNada foi encontrado"<<endl;
             }
         }
         else{
